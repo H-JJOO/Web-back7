@@ -7,11 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/BoardDelServlet")
+@WebServlet("/del")
 public class BoardDelServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String strIboard = req.getParameter("iboard");
 
+        int iboard = Integer.parseInt(strIboard);
+
+        BoardVO param = new BoardVO();
+
+        param.setIboard(iboard);
+
+        int result = BoardDAO.delBoard(param);
+
+        switch (result) {
+            case 1:
+                res.sendRedirect("list");
+                break;
+        }
     }
 
     @Override
